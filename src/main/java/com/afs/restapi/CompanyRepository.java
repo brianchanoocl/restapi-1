@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Repository
 public class CompanyRepository {
@@ -19,12 +20,19 @@ public class CompanyRepository {
         employees2.add(new Employee(2,"Mary2",200 ,"female", 2000));
         employees2.add(new Employee(3,"Mary3", 18,"male", 9999999));
         Company abcCompany = new Company( 1,"ABC Company",employees);
-        Company defCompany = new Company( 1,"DEF Company",employees2);
+        Company defCompany = new Company( 2,"DEF Company",employees2);
         companies.add(abcCompany);
         companies.add(defCompany);
     }
 
     public List<Company> findAll() {
         return companies;
+    }
+
+    public Company findById(Integer id) {
+        return companies.stream()
+                .filter(company -> Objects.equals(company.getId(), id))
+                .findFirst()
+                .orElseThrow(NoCompanyFoundException::new);
     }
 }
