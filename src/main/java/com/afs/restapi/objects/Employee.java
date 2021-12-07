@@ -1,8 +1,6 @@
 package com.afs.restapi.objects;
 
-import java.io.Serializable;
-
-public class Employee implements Serializable {
+public class Employee {
     private Integer id;
     private String name;
     private Integer age;
