@@ -38,7 +38,7 @@ public class EmployeeController {
         return employeeRepository.create(employee);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public  Employee editEmployee(@PathVariable Integer id,@RequestBody Employee updatedEmployee){
         Employee employee = employeeRepository.findById(id);
         if(updatedEmployee.getAge() != null){
