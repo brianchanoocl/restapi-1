@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.ConcurrentMap;
 import java.util.stream.Collectors;
 
 @Repository
@@ -59,5 +60,10 @@ public class CompanyRepository {
         companies.remove(company);
         companies.add(updatedCompany);
         return updatedCompany;
+    }
+
+    public Company delete(Company company){
+        companies.remove(company);
+        return company;
     }
 }
