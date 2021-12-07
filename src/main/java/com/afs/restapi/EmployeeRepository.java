@@ -1,5 +1,6 @@
 package com.afs.restapi;
 
+import com.afs.restapi.exception.NoEmployeeFoundException;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
