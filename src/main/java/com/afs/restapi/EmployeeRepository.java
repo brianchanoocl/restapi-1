@@ -1,5 +1,6 @@
 package com.afs.restapi;
 
+import com.afs.restapi.objects.Employee;
 import com.afs.restapi.exception.NoEmployeeFoundException;
 import org.springframework.stereotype.Repository;
 

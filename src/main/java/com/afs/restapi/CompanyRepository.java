@@ -1,5 +1,7 @@
 package com.afs.restapi;
 
+import com.afs.restapi.objects.Company;
+import com.afs.restapi.objects.Employee;
 import com.afs.restapi.exception.NoCompanyFoundException;
 import org.springframework.stereotype.Repository;
 

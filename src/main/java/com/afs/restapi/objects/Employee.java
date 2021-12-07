@@ -1,4 +1,4 @@
-package com.afs.restapi;
+package com.afs.restapi.objects;
 
 import java.io.Serializable;
 
