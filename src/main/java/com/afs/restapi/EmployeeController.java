@@ -37,7 +37,7 @@ public class EmployeeController {
     public Employee createEmployee(@RequestBody Employee employee){
         return employeeRepository.create(employee);
     }
-    
+
     @PutMapping
     public  Employee editEmployee(@PathVariable Integer id,@RequestBody Employee updatedEmployee){
         Employee employee = employeeRepository.findById(id);
@@ -54,6 +54,13 @@ public class EmployeeController {
             employee.setName(updatedEmployee.getName());
         }
         return employeeRepository.update(id,employee);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{id}")
+    public Employee deleteEmployee(@PathVariable Integer id){
+        Employee employee = employeeRepository.findById(id);
+        return employeeRepository.delete(employee);
     }
 
 }
