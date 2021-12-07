@@ -1,5 +1,6 @@
 package com.afs.restapi;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,4 +31,9 @@ public class EmployeeController {
     public List<Employee> getEmployeesByPage(@RequestParam Integer page, Integer pageSize) {
         return employeeRepository.findByPage(page, pageSize);
     }
-}
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping//return 201
+    public Employee createEmployee(@RequestBody Employee employee){
+        return employeeRepository.create(employee);
+    }}
