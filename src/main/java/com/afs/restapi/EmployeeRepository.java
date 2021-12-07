@@ -50,4 +50,11 @@ public class EmployeeRepository {
         employees.add(employee);
         return employee;
     }
+
+    public Employee update(Integer id, Employee updatedEmployee) {
+        Employee employee = findById(id);
+        employees.remove(employee);
+        employees.add(updatedEmployee);
+        return updatedEmployee;
+    }
 }
