@@ -1,4 +1,4 @@
-package com.afs.restapi;
+package com.afs.restapi.repository;
 
 import com.afs.restapi.objects.Employee;
 import com.afs.restapi.exception.NoEmployeeFoundException;
