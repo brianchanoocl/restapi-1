@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.stream.Collectors;
@@ -112,5 +113,23 @@ public class CompanyControllerTest {
                 .andExpect(jsonPath("$[0].employees[0].age").value(18))
                 .andExpect(jsonPath("$[0].employees[0].gender").value("male"))
                 .andExpect(jsonPath("$[0].employees[0].salary").value(9999));
+    }
+
+    @Test
+    void should_return_employee_when_perform_post_given_company() throws Exception {
+        //given
+        String company = "{\n" +
+                "        \"id\": 1,\n" +
+                "        \"companyName\": \"new\",\n" +
+                "        \"employees\": []\n" +
+                "    }";
+
+        //When
+        //then
+        mockMvc.perform(post("/companies")
+                .contentType(MediaType.APPLICATION_JSON).content(company))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id").isNumber())
+                .andExpect(jsonPath("$.companyName").value("new"));
     }
 }
