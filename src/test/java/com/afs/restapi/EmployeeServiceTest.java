@@ -114,6 +114,17 @@ public class EmployeeServiceTest {
         assertEquals(actual,employees);
 
     }
+
+    @Test
+    void should_remove_employee_when_delete_given_id() {
+        //given
+        Employee employee = new Employee(1,"Koby",3,"male",2);
+        //When
+        employeeService.delete(1);
+        //then
+        verify(employeeRepository).delete(employee);
+
+    }
 }
 
 
