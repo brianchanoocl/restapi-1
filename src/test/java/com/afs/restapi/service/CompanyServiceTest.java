@@ -77,4 +77,16 @@ public class CompanyServiceTest {
         //then
         assertEquals(companies, actual);
     }
+
+    @Test
+    void should_return_company_when_create_company_given_comapny() {
+        //given
+        Company company = new Company(1,"company",null);
+        given(companyRepository.create(company))
+                .willReturn(company);
+        //when
+        Company actual =  companyRepository.create(company);
+        //then
+        assertEquals(company,actual);
+    }
 }
