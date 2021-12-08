@@ -40,10 +40,12 @@ public class EmployeeService {
         return employeeRepository.findByGender(gender);
     }
 
-    public List<Employee> findByPage(int page, int pageSize) {
+    public List<Employee> findByPage(Integer page, Integer pageSize) {
         return employeeRepository.findByPage(page,pageSize);
     }
 
-    public void delete(int i) {
+    public void delete(Integer id) {
+        Employee employee = employeeRepository.findById(id);
+        employeeRepository.delete(employee);
     }
 }

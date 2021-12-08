@@ -119,6 +119,8 @@ public class EmployeeServiceTest {
     void should_remove_employee_when_delete_given_id() {
         //given
         Employee employee = new Employee(1,"Koby",3,"male",2);
+        given(employeeRepository.findById(any()))
+                .willReturn(employee);
         //When
         employeeService.delete(1);
         //then
