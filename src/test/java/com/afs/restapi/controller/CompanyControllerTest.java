@@ -79,7 +79,6 @@ public class CompanyControllerTest {
     @Test
     void should_return_employees_when_perform_get_given_companies_and_id() throws Exception {
         //given
-        //Employee employee = new Employee(1, "Brian", 18, "male", 9999,1);
         Company company = new Company(2,"Koby Company", null);
         companyRepository.create(company);
 
@@ -92,5 +91,26 @@ public class CompanyControllerTest {
                 .andExpect(jsonPath("$[0].age").value(18))
                 .andExpect(jsonPath("$[0].gender").value("male"))
                 .andExpect(jsonPath("$[0].salary").value(9999));
+    }
+
+    @Test
+    void should_return_employees_when_perform_get_given_companies_and_page_and_page_size() throws Exception {
+        //given
+        Company company = new Company(2,"Koby Company", null);
+        companyRepository.create(company);
+        companyRepository.create(new Company(1, "dump", null));
+
+        //When
+        //then
+        mockMvc.perform(get("/companies").param("page", "1").param("pageSize", "3"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$[0].id").isNumber())
+                .andExpect(jsonPath("$[0].companyName").value("Koby Company"))
+                .andExpect(jsonPath("$[0].employees", hasSize(1)))
+                .andExpect(jsonPath("$[0].employees[0].name").value("Brian"))
+                .andExpect(jsonPath("$[0].employees[0].age").value(18))
+                .andExpect(jsonPath("$[0].employees[0].gender").value("male"))
+                .andExpect(jsonPath("$[0].employees[0].salary").value(9999));
     }
 }
