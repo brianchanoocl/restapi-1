@@ -134,7 +134,7 @@ public class CompanyControllerTest {
     }
 
     @Test
-    void should_return_employee_when_perform_put_given_company() throws Exception {
+    void should_return_employee_when_perform_put_given_company_and_id() throws Exception {
         //given
         Company company = new Company(2,"Koby Company", null);
         companyRepository.create(company);
@@ -152,5 +152,17 @@ public class CompanyControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").isNumber())
                 .andExpect(jsonPath("$.companyName").value("new"));
+    }
+
+    @Test
+    void should_return_status_204_when_perform_delete_given_id() throws Exception {
+        //given
+        Company company = new Company(2,"Koby Company", null);
+        companyRepository.create(company);
+
+        //When
+        //then
+        mockMvc.perform(delete("/companies/{id}", company.getId()))
+                .andExpect(status().isNoContent());
     }
 }
