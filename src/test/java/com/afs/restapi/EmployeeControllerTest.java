@@ -19,8 +19,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.hamcrest.Matchers.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -150,4 +149,28 @@ public class EmployeeControllerTest {
 
 
     }
+
+    @Test
+    void should_return_employee_when_perform_put_given_employee_and_id() throws Exception {
+        //given
+        Employee employee = new Employee(1, "Brian", 18, "male", 9999);
+        employeeRepository.create(employee);
+        String updatedEmployee = "{\n" +
+                "    \"name\":\"NotKoby\",\n" +
+                "    \"age\":0,\n" +
+                "    \"gender\":\"male\",\n" +
+                "    \"salary\":15\n" +
+                "}";
+        //When
+        //then
+        mockMvc.perform(put("/employees/{id}",employee.getId())
+                        .contentType(MediaType.APPLICATION_JSON).content(updatedEmployee))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name").value("NotKoby"))
+                .andExpect(jsonPath("$.age").value(0))
+                .andExpect(jsonPath("$.gender").value("male"))
+                .andExpect(jsonPath("$.salary").value(15));
+
+    }
+
 }
