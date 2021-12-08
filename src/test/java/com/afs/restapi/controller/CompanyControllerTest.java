@@ -132,4 +132,25 @@ public class CompanyControllerTest {
                 .andExpect(jsonPath("$.id").isNumber())
                 .andExpect(jsonPath("$.companyName").value("new"));
     }
+
+    @Test
+    void should_return_employee_when_perform_put_given_company() throws Exception {
+        //given
+        Company company = new Company(2,"Koby Company", null);
+        companyRepository.create(company);
+
+        String updatedCompany = "{\n" +
+                "        \"id\": 1,\n" +
+                "        \"companyName\": \"new\",\n" +
+                "        \"employees\": []\n" +
+                "    }";
+
+        //When
+        //then
+        mockMvc.perform(put("/companies/{id}", company.getId())
+                .contentType(MediaType.APPLICATION_JSON).content(updatedCompany))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").isNumber())
+                .andExpect(jsonPath("$.companyName").value("new"));
+    }
 }
