@@ -1,6 +1,6 @@
-package com.afs.restapi;
+package com.afs.restapi.controller;
 
-import com.afs.restapi.objects.Employee;
+import com.afs.restapi.entity.Employee;
 import com.afs.restapi.repository.EmployeeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
