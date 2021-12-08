@@ -1,5 +1,6 @@
 package com.afs.restapi.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Company {
@@ -10,7 +11,7 @@ public class Company {
     public Company(Integer id, String companyName, List<Employee> employees) {
         this.id = id;
         this.companyName = companyName;
-        this.employees = employees;
+        this.employees = new ArrayList<>();
     }
 
     public Integer getId() {

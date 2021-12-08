@@ -1,10 +1,13 @@
 package com.afs.restapi.service;
 
 import com.afs.restapi.entity.Company;
+import com.afs.restapi.entity.Employee;
 import com.afs.restapi.repository.CompanyRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class CompanyService {
     private CompanyRepository companyRepository;
 
@@ -34,5 +37,9 @@ public class CompanyService {
 
     public void delete(Company company) {
         companyRepository.delete(company);
+    }
+
+    public List<Employee> findEmployeesByCompanyId(Integer id) {
+        return null;
     }
 }
