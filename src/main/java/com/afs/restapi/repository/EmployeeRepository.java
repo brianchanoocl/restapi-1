@@ -15,9 +15,10 @@ public class EmployeeRepository {
     private List<Employee> employees = new ArrayList<>();
 
     public EmployeeRepository() {
-        employees.add(new Employee(1,"Koby",120 ,"male", 1000,1));
-        employees.add(new Employee(2,"Mary",3 ,"female", 2000,1));
-        employees.add(new Employee(3,"Brian", 18,"male", 9999999,1));
+        employees.add(new Employee(1,"Koby",120 ,"male", 1000,2));
+        employees.add(new Employee(2,"Mary",3 ,"female", 2000,2));
+        employees.add(new Employee(3,"Brian", 18,"male", 9999,1));
+        employees.add(new Employee(4,"Spy", 999,"male", 0,2));
     }
 
     public List<Employee> findAll(){
@@ -68,4 +69,7 @@ public class EmployeeRepository {
         employees.clear();
     }
 
+    public List<Employee> findEmployeesByCompanyId(Integer id) {
+        return employees.stream().filter(employee -> employee.getCompanyId().equals(id)).collect(Collectors.toList());
+    }
 }

@@ -3,6 +3,7 @@ package com.afs.restapi.repository;
 import com.afs.restapi.entity.Company;
 import com.afs.restapi.entity.Employee;
 import com.afs.restapi.exception.NoCompanyFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -11,6 +12,9 @@ import java.util.stream.Collectors;
 
 @Repository
 public class CompanyRepository {
+    @Autowired
+    EmployeeRepository employeeRepository;
+
     private List<Company> companies= new ArrayList<>();
 
     public CompanyRepository(){
@@ -52,6 +56,7 @@ public class CompanyRepository {
                 .max()
                 .orElse(0)+1
         );
+        company.setEmployees(findEmployeesByCompanyId(company.getId()));
         companies.add(company);
         return company;
     }
@@ -69,5 +74,9 @@ public class CompanyRepository {
 
     public void clearAll() {
         companies.clear();
+    }
+
+    public List<Employee> findEmployeesByCompanyId(Integer id) {
+        return employeeRepository.findEmployeesByCompanyId(id);
     }
 }

@@ -3,6 +3,7 @@ package com.afs.restapi.controller;
 import com.afs.restapi.entity.Company;
 import com.afs.restapi.entity.Employee;
 import com.afs.restapi.repository.CompanyRepository;
+import com.afs.restapi.repository.EmployeeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +26,15 @@ public class CompanyControllerTest {
     @Autowired
     CompanyRepository companyRepository;
     @Autowired
+    EmployeeRepository employeeRepository;
+    @Autowired
     MockMvc mockMvc;
     @BeforeEach
     void clearRepository(){
         companyRepository.clearAll();
     }
+
+
 
     @Test
     void should_return_companies_when_perform_get_given_companies() throws Exception {
@@ -74,8 +79,8 @@ public class CompanyControllerTest {
     @Test
     void should_return_employees_when_perform_get_given_companies_and_id() throws Exception {
         //given
-        Employee employee = new Employee(1, "Brian", 18, "male", 9999,1);
-        Company company = new Company(1,"Koby Company", Stream.of(employee).collect(Collectors.toList()));
+        //Employee employee = new Employee(1, "Brian", 18, "male", 9999,1);
+        Company company = new Company(2,"Koby Company", null);
         companyRepository.create(company);
 
         //When
