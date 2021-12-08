@@ -115,4 +115,24 @@ public class EmployeeControllerTest {
                 .andExpect(jsonPath("$[0].salary").value(9999));
 
     }
+
+    @Test
+    void should_return_employees_when_perform_get_given_employees_and_page_and_pageSize() throws Exception {
+        //given
+        Employee employee = new Employee(1, "Brian", 18, "male", 9999);
+        employeeRepository.create(employee);
+
+
+        //When
+        //then
+        mockMvc.perform(get("/employees").param("page", "1").param("pageSize", "3"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$[0].id").isNumber())
+                .andExpect(jsonPath("$[0].name").value("Brian"))
+                .andExpect(jsonPath("$[0].age").value(18))
+                .andExpect(jsonPath("$[0].gender").value("male"))
+                .andExpect(jsonPath("$[0].salary").value(9999));
+
+    }
 }
