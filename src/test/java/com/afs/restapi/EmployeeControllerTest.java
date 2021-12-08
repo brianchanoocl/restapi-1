@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -93,7 +94,9 @@ public class EmployeeControllerTest {
     void should_return_employee_when_perform_get_given_employees_and_gender() throws Exception {
         //given
         Employee employee = new Employee(1, "Brian", 18, "male", 9999);
+        Employee employee2 = new Employee(1, "Mary", 18, "female", 9999);
         employeeRepository.create(employee);
+        employeeRepository.create(employee2);
 
 
         //When
@@ -112,21 +115,28 @@ public class EmployeeControllerTest {
     @Test
     void should_return_employees_when_perform_get_given_employees_and_page_and_pageSize() throws Exception {
         //given
-        Employee employee = new Employee(1, "Brian", 18, "male", 9999);
+        Employee employee = new Employee(1, "Brian1", 18, "male", 9999);
         employeeRepository.create(employee);
-
-
+        employee = new Employee(1, "Brian2", 18, "male", 9999);
+        employeeRepository.create(employee);
+        employee = new Employee(1, "Brian3", 18, "male", 9999);
+        employeeRepository.create(employee);
+        employee = new Employee(1, "Brian4", 18, "male", 9999);
+        employeeRepository.create(employee);
+        employee = new Employee(1, "Brian5", 18, "male", 9999);
+        employeeRepository.create(employee);
+        employee = new Employee(1, "Brian6", 18, "male", 9999);
+        employeeRepository.create(employee);
         //When
         //then
         mockMvc.perform(get("/employees").param("page", "1").param("pageSize", "3"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$", hasSize(3)))
                 .andExpect(jsonPath("$[0].id").isNumber())
-                .andExpect(jsonPath("$[0].name").value("Brian"))
+                .andExpect(jsonPath("$[*].name" , contains("Brian1" , "Brian2" , "Brian3")))
                 .andExpect(jsonPath("$[0].age").value(18))
                 .andExpect(jsonPath("$[0].gender").value("male"))
                 .andExpect(jsonPath("$[0].salary").value(9999));
-
     }
 
     @Test
@@ -140,7 +150,7 @@ public class EmployeeControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.delete("/employees/"+employee.getId()))
                 .andExpect(status().isNoContent());
 
-
+        assertEquals(0,employeeRepository.findAll().size());
     }
 
     @Test
