@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Repository
@@ -35,7 +34,7 @@ public class CompanyRepository {
 
     public Company findById(Integer id) {
         return companies.stream()
-                .filter(company -> Objects.equals(company.getId(), id))
+                .filter(company -> company.getId().equals(id))
                 .findFirst()
                 .orElseThrow(NoCompanyFoundException::new);
     }
