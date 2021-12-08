@@ -43,10 +43,10 @@ public class EmployeeServiceTest {
 
         //When
         Employee employee = new Employee(1,"Koby",20,"male",5);
-        Employee updatedEmployee = new Employee(1,"Koby",20,"male",999);
+        Employee updatedEmployee = new Employee(1,"Koby",99,"male",6);
         given(employeeRepository.findById(any()))
                 .willReturn(employee);
-        employee.setAge(updatedEmployee.getSalary());
+        employee.setAge(updatedEmployee.getAge());
         employee.setSalary(updatedEmployee.getSalary());
         given(employeeRepository.update(any(),any(Employee.class)))
                 .willReturn(employee);
