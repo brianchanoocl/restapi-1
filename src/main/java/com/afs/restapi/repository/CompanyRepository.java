@@ -15,13 +15,13 @@ public class CompanyRepository {
 
     public CompanyRepository(){
         List<Employee> employees = new ArrayList<>();
-        employees.add(new Employee(1,"Koby1",100 ,"male", 1000));
-        employees.add(new Employee(2,"Koby2",200 ,"female", 2000));
-        employees.add(new Employee(3,"Koby3", 18,"male", 9999999));
+        employees.add(new Employee(1,"Koby1",100 ,"male", 1000,1));
+        employees.add(new Employee(2,"Koby2",200 ,"female", 2000,1));
+        employees.add(new Employee(3,"Koby3", 18,"male", 9999999,1));
         List<Employee> employees2 = new ArrayList<>();
-        employees2.add(new Employee(1,"Mary1",100 ,"male", 1000));
-        employees2.add(new Employee(2,"Mary2",200 ,"female", 2000));
-        employees2.add(new Employee(3,"Mary3", 18,"male", 9999999));
+        employees2.add(new Employee(1,"Mary1",100 ,"male", 1000,2));
+        employees2.add(new Employee(2,"Mary2",200 ,"female", 2000,2));
+        employees2.add(new Employee(3,"Mary3", 18,"male", 9999999,2));
         Company abcCompany = new Company( 1,"ABC Company",employees);
         Company defCompany = new Company( 2,"DEF Company",employees2);
         companies.add(abcCompany);

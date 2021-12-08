@@ -34,7 +34,7 @@ public class CompanyControllerTest {
     @Test
     void should_return_companies_when_perform_get_given_companies() throws Exception {
         //given
-        Employee employee = new Employee(1, "Brian", 18, "male", 9999);
+        Employee employee = new Employee(1, "Brian", 18, "male", 9999,1);
         Company company = new Company(1,"Koby Company", Stream.of(employee).collect(Collectors.toList()));
         companyRepository.create(company);
         //When
@@ -54,7 +54,7 @@ public class CompanyControllerTest {
     @Test
     void should_return_company_when_perform_get_given_companies_and_id() throws Exception {
         //given
-        Employee employee = new Employee(1, "Brian", 18, "male", 9999);
+        Employee employee = new Employee(1, "Brian", 18, "male", 9999,1);
         Company company = new Company(1,"Koby Company", Stream.of(employee).collect(Collectors.toList()));
         companyRepository.create(company);
 

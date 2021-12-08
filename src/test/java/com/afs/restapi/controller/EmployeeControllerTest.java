@@ -32,7 +32,7 @@ public class EmployeeControllerTest {
     @Test
     void should_return_employees_when_perform_get_given_employees() throws Exception {
         //given
-        Employee employee = new Employee(1, "Brian", 18, "male", 9999);
+        Employee employee = new Employee(1, "Brian", 18, "male", 9999,1);
         employeeRepository.create(employee);
 
 
@@ -74,7 +74,7 @@ public class EmployeeControllerTest {
     @Test
     void should_return_employee_when_perform_get_given_employees_and_id() throws Exception {
         //given
-        Employee employee = new Employee(1, "Brian", 18, "male", 9999);
+        Employee employee = new Employee(1, "Brian", 18, "male", 9999,1);
         employeeRepository.create(employee);
 
 
@@ -93,8 +93,8 @@ public class EmployeeControllerTest {
     @Test
     void should_return_employee_when_perform_get_given_employees_and_gender() throws Exception {
         //given
-        Employee employee = new Employee(1, "Brian", 18, "male", 9999);
-        Employee employee2 = new Employee(1, "Mary", 18, "female", 9999);
+        Employee employee = new Employee(1, "Brian", 18, "male", 9999,1);
+        Employee employee2 = new Employee(1, "Mary", 18, "female", 9999,1);
         employeeRepository.create(employee);
         employeeRepository.create(employee2);
 
@@ -115,17 +115,17 @@ public class EmployeeControllerTest {
     @Test
     void should_return_employees_when_perform_get_given_employees_and_page_and_pageSize() throws Exception {
         //given
-        Employee employee = new Employee(1, "Brian1", 18, "male", 9999);
+        Employee employee = new Employee(1, "Brian1", 18, "male", 9999,1);
         employeeRepository.create(employee);
-        employee = new Employee(1, "Brian2", 18, "male", 9999);
+        employee = new Employee(1, "Brian2", 18, "male", 9999,1);
         employeeRepository.create(employee);
-        employee = new Employee(1, "Brian3", 18, "male", 9999);
+        employee = new Employee(1, "Brian3", 18, "male", 9999,1);
         employeeRepository.create(employee);
-        employee = new Employee(1, "Brian4", 18, "male", 9999);
+        employee = new Employee(1, "Brian4", 18, "male", 9999,1);
         employeeRepository.create(employee);
-        employee = new Employee(1, "Brian5", 18, "male", 9999);
+        employee = new Employee(1, "Brian5", 18, "male", 9999,1);
         employeeRepository.create(employee);
-        employee = new Employee(1, "Brian6", 18, "male", 9999);
+        employee = new Employee(1, "Brian6", 18, "male", 9999,1);
         employeeRepository.create(employee);
         //When
         //then
@@ -142,7 +142,7 @@ public class EmployeeControllerTest {
     @Test
     void should_remove_employee_when_perform_delete_given_employees_and_id() throws Exception {
         //given
-        Employee employee = new Employee(1, "Brian", 18, "male", 9999);
+        Employee employee = new Employee(1, "Brian", 18, "male", 9999,1);
         employeeRepository.create(employee);
 
         //When
@@ -156,7 +156,7 @@ public class EmployeeControllerTest {
     @Test
     void should_return_employee_when_perform_put_given_employee_and_id() throws Exception {
         //given
-        Employee employee = new Employee(1, "Brian", 18, "male", 9999);
+        Employee employee = new Employee(1, "Brian", 18, "male", 9999,1);
         employeeRepository.create(employee);
         String updatedEmployee = "{\n" +
                 "    \"name\":\"NotKoby\",\n" +

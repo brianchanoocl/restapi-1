@@ -29,7 +29,7 @@ public class EmployeeServiceTest {
     @Test
     void should_return_all_employees_when_find_all_given_employees() {
         //given
-        List<Employee> employees = Stream.of(new Employee(1,"Koby",3,"male",2))
+        List<Employee> employees = Stream.of(new Employee(1,"Koby",3,"male",2,1))
                 .collect(Collectors.toList());
         given(employeeRepository.findAll())
                 .willReturn(employees);
@@ -42,8 +42,8 @@ public class EmployeeServiceTest {
     @Test
     void should_return_updated_when_edit_employee_given_updated_employee() {
         //given
-        Employee employee = new Employee(1,"Koby",20,"male",5);
-        Employee updatedEmployee = new Employee(1,"Koby",99,"male",6);
+        Employee employee = new Employee(1,"Koby",20,"male",5,1);
+        Employee updatedEmployee = new Employee(1,"Koby",99,"male",6,1);
         given(employeeRepository.findById(any()))
                 .willReturn(employee);
         employee.setAge(updatedEmployee.getAge());
@@ -60,7 +60,7 @@ public class EmployeeServiceTest {
     @Test
     void should_return_employee_when_create_employee_given_new_employee() {
         //given
-        Employee employee = new Employee(1,"Koby",20,"male",5);
+        Employee employee = new Employee(1,"Koby",20,"male",5,1);
         given(employeeRepository.create(any()))
                 .willReturn(employee);
         //When
@@ -72,7 +72,7 @@ public class EmployeeServiceTest {
     @Test
     void should_return_employee_when_find_by_id_given_employees_and_id() {
         //given
-        Employee employee = new Employee(1,"Koby",3,"male",2);
+        Employee employee = new Employee(1,"Koby",3,"male",2,1);
         given(employeeRepository.findById(any()))
                 .willReturn(employee);
 
@@ -87,7 +87,7 @@ public class EmployeeServiceTest {
     void should_return_employees_when_find_by_gender_given_employees_and_gender() {
         //given
         List<Employee> employees = new ArrayList<>();
-        employees.add(new Employee(1,"Koby",3,"male",2));
+        employees.add(new Employee(1,"Koby",3,"male",2,1));
         given(employeeRepository.findByGender("male"))
                 .willReturn(employees);
         //When
@@ -101,11 +101,11 @@ public class EmployeeServiceTest {
     void should_return_employees_when_find_by_page_and_pageSize_given_employees_and_page_and_pageSize() {
         //given
         List<Employee> employees = new ArrayList<>();
-        employees.add(new Employee(1,"Koby",3,"male",2));
-        employees.add(new Employee(2,"Koby",3,"male",2));
-        employees.add(new Employee(3,"Koby",3,"male",2));
-        employees.add(new Employee(4,"Koby",3,"male",2));
-        employees.add(new Employee(5,"Koby",3,"male",2));
+        employees.add(new Employee(1,"Koby",3,"male",2,1));
+        employees.add(new Employee(2,"Koby",3,"male",2,1));
+        employees.add(new Employee(3,"Koby",3,"male",2,1));
+        employees.add(new Employee(4,"Koby",3,"male",2,1));
+        employees.add(new Employee(5,"Koby",3,"male",2,1));
         given(employeeRepository.findByPage(1,5))
                 .willReturn(employees);
         //When
@@ -119,7 +119,7 @@ public class EmployeeServiceTest {
     @Test
     void should_remove_employee_when_delete_given_id() {
         //given
-        Employee employee = new Employee(1,"Koby",3,"male",2);
+        Employee employee = new Employee(1,"Koby",3,"male",2,1);
         given(employeeRepository.findById(any()))
                 .willReturn(employee);
         //When
