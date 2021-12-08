@@ -16,6 +16,7 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(SpringExtension.class)
 public class EmployeeServiceTest {
@@ -40,8 +41,6 @@ public class EmployeeServiceTest {
     @Test
     void should_return_updated_when_edit_employee_given_updated_employee() {
         //given
-
-        //When
         Employee employee = new Employee(1,"Koby",20,"male",5);
         Employee updatedEmployee = new Employee(1,"Koby",99,"male",6);
         given(employeeRepository.findById(any()))
@@ -50,8 +49,10 @@ public class EmployeeServiceTest {
         employee.setSalary(updatedEmployee.getSalary());
         given(employeeRepository.update(any(),any(Employee.class)))
                 .willReturn(employee);
+        //When
         Employee actual = employeeService.edit(employee.getId(),updatedEmployee);
         //then
+        verify(employeeRepository).update(employee.getId(),employee);
         assertEquals(actual,employee);
     }
 }
