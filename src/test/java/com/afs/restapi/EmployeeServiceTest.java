@@ -55,6 +55,18 @@ public class EmployeeServiceTest {
         verify(employeeRepository).update(employee.getId(),employee);
         assertEquals(actual,employee);
     }
+
+    @Test
+    void should_return_employee_when_create_employee_given_new_employee() {
+        //given
+        Employee employee = new Employee(1,"Koby",20,"male",5);
+        given(employeeRepository.create(any()))
+                .willReturn(employee);
+        //When
+        Employee actual = employeeService.create(employee);
+        //then
+        assertEquals(actual,employee);
+    }
 }
 
 
