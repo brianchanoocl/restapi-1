@@ -29,13 +29,7 @@ public class EmployeeService {
     }
 
     public Employee create(Employee employee) {
-        employee.setId(employeeRepository.getEmployees().stream()
-                .mapToInt(Employee::getId)
-                .max()
-                .orElse(0)+1
-        );
-        employeeRepository.getEmployees().add(employee);
-        return employee;
+        return employeeRepository.create(employee);
     }
 
     public Employee findById(Integer id) {
