@@ -9,6 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -60,5 +61,20 @@ public class CompanyServiceTest {
         List<Employee> actual =  companyRepository.findEmployeesByCompanyId(company.getId());
         //then
         assertEquals(employees,actual);
+    }
+
+    @Test
+    void should_return_companies_when_find_company_by_page_given_companies_and_page_and_pageSize() {
+        //given
+        List<Company> companies = new ArrayList<>();
+        companies.add(new Company(1,"company",null));
+        companies.add(new Company(2,"company",null));
+        companies.add(new Company(1,"company",null));
+        given(companyRepository.findByPage(1, 3))
+                .willReturn(companies);
+        //when
+        List<Company> actual =  companyRepository.findByPage(1, 3);
+        //then
+        assertEquals(companies, actual);
     }
 }
