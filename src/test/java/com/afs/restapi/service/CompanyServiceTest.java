@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(SpringExtension.class)
@@ -86,6 +87,22 @@ public class CompanyServiceTest {
                 .willReturn(company);
         //when
         Company actual =  companyRepository.create(company);
+        //then
+        assertEquals(company,actual);
+    }
+
+    @Test
+    void should_return_company_when_update_company_given_updated_comapny() {
+        //given
+        Company company = new Company(1,"company",null);
+        Company updatedCompany = new Company(1,"new",null);
+        given(companyRepository.findById(company.getId()))
+                .willReturn(company);
+        company.setCompanyName(updatedCompany.getCompanyName());
+        given(companyRepository.update(1, updatedCompany))
+                .willReturn(company);
+        //when
+        Company actual =  companyRepository.update(company.getId(), updatedCompany);
         //then
         assertEquals(company,actual);
     }
