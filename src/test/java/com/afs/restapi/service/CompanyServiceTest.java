@@ -48,5 +48,17 @@ public class CompanyServiceTest {
         assertEquals(company, actual);
     }
 
-    
+    @Test
+    void should_return_employees_when_find_Employees_By_Company_Id_given_companies_and_id() {
+        //given
+        List<Employee> employees = Stream.of(new Employee(1,"Koby",3,"male",2,1))
+                .collect(Collectors.toList());
+        Company company = new Company(1,"company",employees);
+        given(companyRepository.findEmployeesByCompanyId(1))
+                .willReturn(employees);
+        //when
+        List<Employee> actual =  companyRepository.findEmployeesByCompanyId(company.getId());
+        //then
+        assertEquals(employees,actual);
+    }
 }
