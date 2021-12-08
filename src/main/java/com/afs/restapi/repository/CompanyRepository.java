@@ -64,8 +64,7 @@ public class CompanyRepository {
         return updatedCompany;
     }
 
-    public Company delete(Company company){
+    public void delete(Company company){
         companies.remove(company);
-        return company;
     }
 }

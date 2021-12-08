@@ -60,9 +60,9 @@ public class EmployeeController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
-    public Employee deleteEmployee(@PathVariable Integer id){
+    public void deleteEmployee(@PathVariable Integer id){
         Employee employee = employeeRepository.findById(id);
-        return employeeRepository.delete(employee);
+        employeeRepository.delete(employee);
     }
 
 }
