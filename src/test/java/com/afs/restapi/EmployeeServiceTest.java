@@ -95,6 +95,25 @@ public class EmployeeServiceTest {
         verify(employeeRepository).findByGender("male");
         assertEquals(actual, employees);
     }
+
+    @Test
+    void should_return_employees_when_find_by_page_and_pageSize_given_employees_and_page_and_pageSize() {
+        //given
+        List<Employee> employees = new ArrayList<>();
+        employees.add(new Employee(1,"Koby",3,"male",2));
+        employees.add(new Employee(2,"Koby",3,"male",2));
+        employees.add(new Employee(3,"Koby",3,"male",2));
+        employees.add(new Employee(4,"Koby",3,"male",2));
+        employees.add(new Employee(5,"Koby",3,"male",2));
+        given(employeeRepository.findByPage(1,5))
+                .willReturn(employees);
+        //When
+        List<Employee> actual = employeeService.findByPage(1,5);
+        //then
+        verify(employeeRepository).findByPage(1,5);
+        assertEquals(actual,employees);
+
+    }
 }
 
 
