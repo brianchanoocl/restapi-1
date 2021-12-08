@@ -92,6 +92,7 @@ public class EmployeeServiceTest {
         //When
         List<Employee> actual = employeeService.findByGender("male");
         //then
+        verify(employeeRepository).findByGender("male");
         assertEquals(actual, employees);
     }
 }
