@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 
+import javax.security.auth.message.callback.PrivateKeyCallback;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -133,6 +134,20 @@ public class EmployeeControllerTest {
                 .andExpect(jsonPath("$[0].age").value(18))
                 .andExpect(jsonPath("$[0].gender").value("male"))
                 .andExpect(jsonPath("$[0].salary").value(9999));
+
+    }
+
+    @Test
+    void should_remove_employee_when_perform_delete_given_employees_and_id() throws Exception {
+        //given
+        Employee employee = new Employee(1, "Brian", 18, "male", 9999);
+        employeeRepository.create(employee);
+
+        //When
+        //then
+        mockMvc.perform(MockMvcRequestBuilders.delete("/employees/"+employee.getId()))
+                .andExpect(status().isNoContent());
+
 
     }
 }
