@@ -86,9 +86,8 @@ public class EmployeeServiceTest {
     void should_return_employees_when_find_by_gender_given_employees_and_gender() {
         //given
         List<Employee> employees = new ArrayList<>();
-        Employee employee = new Employee(1,"Koby",3,"male",2);
-        employees.add(employee);
-        given(employeeRepository.findByGender(employee.getGender()))
+        employees.add(new Employee(1,"Koby",3,"male",2));
+        given(employeeRepository.findByGender("male"))
                 .willReturn(employees);
         //When
         List<Employee> actual = employeeService.findByGender("male");
