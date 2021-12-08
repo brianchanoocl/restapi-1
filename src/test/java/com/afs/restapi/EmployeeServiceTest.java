@@ -67,6 +67,20 @@ public class EmployeeServiceTest {
         //then
         assertEquals(actual,employee);
     }
+
+    @Test
+    void should_return_employee_when_find_by_id_given_employees_and_id() {
+        //given
+        Employee employee = new Employee(1,"Koby",3,"male",2);
+        given(employeeRepository.findById(any()))
+                .willReturn(employee);
+
+        //When
+        Employee actual = employeeService.findById(employee.getId());
+
+        //then
+        assertEquals(actual, employee);
+    }
 }
 
 
