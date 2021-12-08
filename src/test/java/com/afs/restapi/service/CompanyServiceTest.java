@@ -17,6 +17,7 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(SpringExtension.class)
 public class CompanyServiceTest {
@@ -105,5 +106,17 @@ public class CompanyServiceTest {
         Company actual =  companyRepository.update(company.getId(), updatedCompany);
         //then
         assertEquals(company,actual);
+    }
+
+    @Test
+    void should_remove_company_when_delete_given_updated_comapny() {
+        //given
+        Company company = new Company(1,"company",null);
+        given(companyRepository.findById(1))
+                .willReturn(company);
+        //when
+        companyRepository.delete(company);
+        //then
+        verify(companyRepository).delete(company);
     }
 }
