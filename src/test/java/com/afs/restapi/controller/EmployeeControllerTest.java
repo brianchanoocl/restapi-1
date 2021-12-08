@@ -169,7 +169,7 @@ public class EmployeeControllerTest {
         mockMvc.perform(put("/employees/{id}",employee.getId())
                         .contentType(MediaType.APPLICATION_JSON).content(updatedEmployee))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name").value("NotKoby"))
+                .andExpect(jsonPath("$.name").value("Brian"))
                 .andExpect(jsonPath("$.age").value(0))
                 .andExpect(jsonPath("$.gender").value("male"))
                 .andExpect(jsonPath("$.salary").value(15));
