@@ -23,19 +23,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class EmployeeControllerTest {
     @Autowired
-    EmployeeRepository employeeRepository;
-    @Autowired
     EmployeeRepositoryNew employeeRepositoryNew;
     @Autowired
     MockMvc mockMvc;
     @BeforeEach
     void clearRepositoryBefore(){
-        employeeRepository.clearAll();
         employeeRepositoryNew.deleteAll();
     }
     @AfterEach
     void clearRepository(){
-        employeeRepository.clearAll();
         employeeRepositoryNew.deleteAll();
     }
 
