@@ -101,14 +101,14 @@ public class CompanyServiceTest {
     }
 
     @Test
-    void should_return_company_when_update_company_given_updated_comapny() {
+    void should_return_company_when_update_company_given_updated_company() {
         //given
         Company company = new Company("1","company");
         Company updatedCompany = new Company("1","new");
-        given(companyRepository.findById(company.getId()))
-                .willReturn(company);
+        given(companyRepositoryNew.findById(company.getId()))
+                .willReturn(java.util.Optional.of(company));
         company.setCompanyName(updatedCompany.getCompanyName());
-        given(companyRepository.update("1", updatedCompany))
+        given(companyRepositoryNew.save(updatedCompany))
                 .willReturn(company);
         //when
         Company actual =  companyService.update(company.getId(), updatedCompany);
