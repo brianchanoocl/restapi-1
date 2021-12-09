@@ -3,7 +3,9 @@ package com.afs.restapi.controller;
 import com.afs.restapi.entity.Company;
 import com.afs.restapi.entity.Employee;
 import com.afs.restapi.repository.CompanyRepository;
+import com.afs.restapi.repository.CompanyRepositoryNew;
 import com.afs.restapi.repository.EmployeeRepository;
+import com.afs.restapi.repository.EmployeeRepositoryNew;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +29,15 @@ public class CompanyControllerTest {
     @Autowired
     CompanyRepository companyRepository;
     @Autowired
-    EmployeeRepository employeeRepository;
+    CompanyRepositoryNew companyRepositoryNew;
+    @Autowired
+    EmployeeRepositoryNew employeeRepositoryNew;
     @Autowired
     MockMvc mockMvc;
     @BeforeEach
     void clearRepository(){
         companyRepository.clearAll();
+        companyRepositoryNew.deleteAll();
     }
 
 
