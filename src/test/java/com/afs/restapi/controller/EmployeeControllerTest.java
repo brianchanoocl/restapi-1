@@ -2,6 +2,7 @@ package com.afs.restapi.controller;
 
 import com.afs.restapi.entity.Employee;
 import com.afs.restapi.repository.EmployeeRepository;
+import com.afs.restapi.repository.EmployeeRepositoryNew;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +24,13 @@ public class EmployeeControllerTest {
     @Autowired
     EmployeeRepository employeeRepository;
     @Autowired
+    EmployeeRepositoryNew employeeRepositoryNew;
+    @Autowired
     MockMvc mockMvc;
     @BeforeEach
     void clearRepository(){
         employeeRepository.clearAll();
+        employeeRepositoryNew.deleteAll();
     }
 
 
