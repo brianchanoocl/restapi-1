@@ -115,7 +115,7 @@ public class CompanyControllerTest {
         //given
         String company = "{\n" +
                 "        \"id\": \"1\",\n" +
-                "        \"companyName\": \"new\"\n" +
+                "        \"name\": \"new\"\n" +
                 "    }";
 
         //When
