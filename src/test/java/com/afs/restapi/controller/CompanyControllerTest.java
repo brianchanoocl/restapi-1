@@ -47,7 +47,7 @@ public class CompanyControllerTest {
         //given
         Employee employee = new Employee("1", "Brian", 18, "male", 9999,"1");
         Company company = new Company("1","Koby Company");
-        companyRepository.create(company);
+        companyRepositoryNew.insert(company);
         //When
         //then
         mockMvc.perform(get("/companies"))
