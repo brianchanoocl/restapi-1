@@ -11,7 +11,12 @@ public class EmployeeMapper {
     public Employee toEntity(EmployeeRequest employeeRequest){
         Employee employee = new Employee();
 
-        BeanUtils.copyProperties(employeeRequest, employee);
+        //BeanUtils.copyProperties(employeeRequest, employee);
+        employee.setName(employeeRequest.getName());
+        employee.setAge(employeeRequest.getAge());
+        employee.setGender(employeeRequest.getGender());
+        employee.setSalary(employeeRequest.getSalary());
+        employee.setCompanyId(employeeRequest.getCompanyId());
 
         return employee;
     }
