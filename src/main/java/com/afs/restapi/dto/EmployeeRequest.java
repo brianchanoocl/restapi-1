@@ -1,32 +1,18 @@
-package com.afs.restapi.entity;
+package com.afs.restapi.dto;
 
-public class Employee {
-    private String id;
+public class EmployeeRequest {
     private String name;
     private Integer age;
     private String gender;
     private Integer salary;
     private String companyId;
 
-    public Employee(String id, String name, Integer age, String gender, Integer salary, String companyId) {
-        this.id = id;
+    public EmployeeRequest(String name, Integer age, String gender, Integer salary, String companyId) {
         this.name = name;
         this.age = age;
         this.gender = gender;
         this.salary = salary;
         this.companyId = companyId;
-    }
-
-    public Employee() {
-
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getName() {

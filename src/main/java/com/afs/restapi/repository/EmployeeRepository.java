@@ -45,12 +45,7 @@ public class EmployeeRepository {
     }
 
     public Employee create(Employee employee) {
-        employee.setId(String.valueOf(employees.stream()
-                //.mapToInt(Employee::getId)
-                .mapToInt(item -> Integer.getInteger(item.getId()))
-                .max()
-                .orElse(0)+1)
-        );
+        employee.setId(String.valueOf(employees.stream().mapToInt(employee1 -> Integer.parseInt(employee1.getId())).max().orElse(0) + 1));
         employees.add(employee);
         return employee;
     }

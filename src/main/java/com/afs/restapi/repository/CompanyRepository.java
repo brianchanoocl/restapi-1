@@ -54,12 +54,7 @@ public class CompanyRepository {
     }
 
     public Company create(Company company) {
-        company.setId(String.valueOf(companies.stream()
-                //.mapToInt(Company::getId)
-                .mapToInt(item -> Integer.getInteger(item.getId()))
-                .max()
-                .orElse(0)+1)
-        );
+        company.setId(String.valueOf(companies.stream().mapToInt(company1 -> Integer.parseInt(company1.getId())).max().orElse(0) + 1));
         company.setEmployees(findEmployeesByCompanyId(company.getId()));
         companies.add(company);
         return company;
