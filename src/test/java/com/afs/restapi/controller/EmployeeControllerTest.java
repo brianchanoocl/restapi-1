@@ -122,20 +122,20 @@ public class EmployeeControllerTest {
     void should_return_employees_when_perform_get_given_employees_and_page_and_pageSize() throws Exception {
         //given
         Employee employee = new Employee("1", "Brian1", 18, "male", 9999,"1");
-        employeeRepository.create(employee);
+        employeeRepositoryNew.insert(employee);
         employee = new Employee("1", "Brian2", 18, "male", 9999,"1");
-        employeeRepository.create(employee);
+        employeeRepositoryNew.insert(employee);
         employee = new Employee("1", "Brian3", 18, "male", 9999,"1");
-        employeeRepository.create(employee);
+        employeeRepositoryNew.insert(employee);
         employee = new Employee("1", "Brian4", 18, "male", 9999,"1");
-        employeeRepository.create(employee);
+        employeeRepositoryNew.insert(employee);
         employee = new Employee("1", "Brian5", 18, "male", 9999,"1");
-        employeeRepository.create(employee);
+        employeeRepositoryNew.insert(employee);
         employee = new Employee("1", "Brian6", 18, "male", 9999,"1");
-        employeeRepository.create(employee);
+        employeeRepositoryNew.insert(employee);
         //When
         //then
-        mockMvc.perform(get("/employees").param("page", "1").param("pageSize", "3"))
+        mockMvc.perform(get("/employees").param("page", "0").param("pageSize", "3"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(3)))
                 .andExpect(jsonPath("$[0].id").isString())
