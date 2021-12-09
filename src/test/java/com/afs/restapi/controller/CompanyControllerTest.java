@@ -149,7 +149,7 @@ public class CompanyControllerTest {
     void should_return_status_204_when_perform_delete_given_id() throws Exception {
         //given
         Company company = new Company("2","Koby Company");
-        companyRepository.create(company);
+        companyRepositoryNew.insert(company);
 
         //When
         //then
