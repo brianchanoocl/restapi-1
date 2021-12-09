@@ -3,13 +3,20 @@ package com.afs.restapi.service;
 import com.afs.restapi.entity.Employee;
 import com.afs.restapi.exception.NoEmployeeFoundException;
 import com.afs.restapi.repository.EmployeeRepository;
+import com.afs.restapi.repository.EmployeeRepositoryNew;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.awt.print.Pageable;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -24,6 +31,10 @@ import static org.mockito.Mockito.verify;
 public class EmployeeServiceTest {
     @Mock
     EmployeeRepository employeeRepository;
+
+    @Mock
+    EmployeeRepositoryNew employeeRepositoryNew;
+
     @InjectMocks
     EmployeeService employeeService;
 
@@ -32,7 +43,7 @@ public class EmployeeServiceTest {
         //given
         List<Employee> employees = Stream.of(new Employee("1","Koby",3,"male",2,"1"))
                 .collect(Collectors.toList());
-        given(employeeRepository.findAll())
+        given(employeeRepositoryNew.findAll())
                 .willReturn(employees);
         //when
         List<Employee> actual =  employeeService.findAll();
@@ -45,16 +56,16 @@ public class EmployeeServiceTest {
         //given
         Employee employee = new Employee("1","Koby",20,"male",5,"1");
         Employee updatedEmployee = new Employee("1","Koby",99,"male",6,"1");
-        given(employeeRepository.findById(any()))
-                .willReturn(employee);
+        given(employeeRepositoryNew.findById(any()))
+                .willReturn(java.util.Optional.of(employee));
         employee.setAge(updatedEmployee.getAge());
         employee.setSalary(updatedEmployee.getSalary());
-        given(employeeRepository.update(any(),any(Employee.class)))
+        given(employeeRepositoryNew.save(any(Employee.class)))
                 .willReturn(employee);
         //When
         Employee actual = employeeService.edit(employee.getId(),updatedEmployee);
         //then
-        verify(employeeRepository).update(employee.getId(),employee);
+        verify(employeeRepositoryNew).save(employee);
         assertEquals(actual,employee);
     }
 
@@ -62,7 +73,7 @@ public class EmployeeServiceTest {
     void should_return_employee_when_create_employee_given_new_employee() {
         //given
         Employee employee = new Employee("1","Koby",20,"male",5,"1");
-        given(employeeRepository.create(any()))
+        given(employeeRepositoryNew.insert(any(Employee.class)))
                 .willReturn(employee);
         //When
         Employee actual = employeeService.create(employee);
@@ -74,8 +85,8 @@ public class EmployeeServiceTest {
     void should_return_employee_when_find_by_id_given_employees_and_id() {
         //given
         Employee employee = new Employee("1","Koby",3,"male",2,"1");
-        given(employeeRepository.findById(any()))
-                .willReturn(employee);
+        given(employeeRepositoryNew.findById(any()))
+                .willReturn(java.util.Optional.of(employee));
 
         //When
         Employee actual = employeeService.findById(employee.getId());
@@ -89,12 +100,12 @@ public class EmployeeServiceTest {
         //given
         List<Employee> employees = new ArrayList<>();
         employees.add(new Employee("1","Koby",3,"male",2,"1"));
-        given(employeeRepository.findByGender("male"))
+        given(employeeRepositoryNew.findAllByGender("male"))
                 .willReturn(employees);
         //When
         List<Employee> actual = employeeService.findByGender("male");
         //then
-        verify(employeeRepository).findByGender("male");
+        verify(employeeRepositoryNew).findAllByGender("male");
         assertEquals(actual, employees);
     }
 
@@ -104,15 +115,13 @@ public class EmployeeServiceTest {
         List<Employee> employees = new ArrayList<>();
         employees.add(new Employee("1","Koby",3,"male",2,"1"));
         employees.add(new Employee("2","Koby",3,"male",2,"1"));
-        employees.add(new Employee("3","Koby",3,"male",2,"1"));
-        employees.add(new Employee("4","Koby",3,"male",2,"1"));
-        employees.add(new Employee("5","Koby",3,"male",2,"1"));
-        given(employeeRepository.findByPage(1,5))
-                .willReturn(employees);
+        given(employeeRepositoryNew.findAll(PageRequest.of(1, 2)))
+                .willReturn(new PageImpl<>(employees, PageRequest.of(1, 2), 2));
+
         //When
-        List<Employee> actual = employeeService.findByPage(1,5);
+        List<Employee> actual = employeeService.findByPage(1,2);
         //then
-        verify(employeeRepository).findByPage(1,5);
+        verify(employeeRepositoryNew).findAll(PageRequest.of(1, 2));
         assertEquals(actual,employees);
 
     }
@@ -121,12 +130,11 @@ public class EmployeeServiceTest {
     void should_remove_employee_when_delete_given_id() {
         //given
         Employee employee = new Employee("1","Koby",3,"male",2,"1");
-        given(employeeRepository.findById(any()))
-                .willReturn(employee);
+
         //When
-        employeeService.delete("1");
+        employeeService.delete(employee.getId());
         //then
-        verify(employeeRepository).delete(employee);
+        verify(employeeRepositoryNew).deleteById(employee.getId());
 
     }
 
@@ -136,7 +144,7 @@ public class EmployeeServiceTest {
         String id = "1";
         Employee employee = new Employee("1","people",18, "male", 10, "1");
         //when
-        given(employeeRepository.findById("1"))
+        given(employeeRepositoryNew.findById("1"))
                 .willThrow(NoEmployeeFoundException.class);
 
         //then

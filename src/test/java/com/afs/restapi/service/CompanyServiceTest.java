@@ -4,10 +4,14 @@ import com.afs.restapi.entity.Company;
 import com.afs.restapi.entity.Employee;
 import com.afs.restapi.exception.NoCompanyFoundException;
 import com.afs.restapi.repository.CompanyRepository;
+import com.afs.restapi.repository.CompanyRepositoryNew;
+import com.afs.restapi.repository.EmployeeRepositoryNew;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
@@ -24,6 +28,10 @@ import static org.mockito.Mockito.verify;
 public class CompanyServiceTest {
     @Mock
     CompanyRepository companyRepository;
+    @Mock
+    CompanyRepositoryNew companyRepositoryNew;
+    @Mock
+    EmployeeRepositoryNew employeeRepositoryNew;
     @InjectMocks
     CompanyService companyService;
 
@@ -32,10 +40,10 @@ public class CompanyServiceTest {
         //given
         List<Company> companies = Stream.of(new Company("1","company"))
                 .collect(Collectors.toList());
-        given(companyRepository.findAll())
+        given(companyRepositoryNew.findAll())
                 .willReturn(companies);
         //when
-        List<Company> actual =  companyRepository.findAll();
+        List<Company> actual =  companyService.findAll();
         //then
         assertEquals(companies,actual);
     }
@@ -44,10 +52,10 @@ public class CompanyServiceTest {
     void should_return_company_when_find_company_by_id_given_companies_and_id() {
         //given
         Company company = new Company("1","company");
-        given(companyRepository.findById("1"))
-                .willReturn(company);
+        given(companyRepositoryNew.findById("1"))
+                .willReturn(java.util.Optional.of(company));
         //when
-        Company actual =  companyRepository.findById(company.getId());
+        Company actual =  companyService.findById(company.getId());
         //then
         assertEquals(company, actual);
     }
@@ -58,10 +66,10 @@ public class CompanyServiceTest {
         List<Employee> employees = Stream.of(new Employee("1","Koby",3,"male",2,"1"))
                 .collect(Collectors.toList());
         Company company = new Company("1","company");
-        given(companyRepository.findEmployeesByCompanyId("1"))
+        given(employeeRepositoryNew.findAllByCompanyId("1"))
                 .willReturn(employees);
         //when
-        List<Employee> actual =  companyRepository.findEmployeesByCompanyId(company.getId());
+        List<Employee> actual =  companyService.findEmployeesByCompanyId(company.getId());
         //then
         assertEquals(employees,actual);
     }
@@ -72,11 +80,10 @@ public class CompanyServiceTest {
         List<Company> companies = new ArrayList<>();
         companies.add(new Company("1","company"));
         companies.add(new Company("2","company"));
-        companies.add(new Company("1","company"));
-        given(companyRepository.findByPage(1, 3))
-                .willReturn(companies);
+        given(companyRepositoryNew.findAll(PageRequest.of(1, 2)))
+                .willReturn(new PageImpl<>(companies, PageRequest.of(1, 2), 2));
         //when
-        List<Company> actual =  companyRepository.findByPage(1, 3);
+        List<Company> actual =  companyService.findByPage(1, 2);
         //then
         assertEquals(companies, actual);
     }
@@ -85,10 +92,10 @@ public class CompanyServiceTest {
     void should_return_company_when_create_company_given_comapny() {
         //given
         Company company = new Company("1","company");
-        given(companyRepository.create(company))
-                .willReturn(company);
+        //given(employeeRepository.insert(company))
+        //        .willReturn(company);
         //when
-        Company actual =  companyRepository.create(company);
+        Company actual =  companyService.create(company);
         //then
         assertEquals(company,actual);
     }
@@ -104,7 +111,7 @@ public class CompanyServiceTest {
         given(companyRepository.update("1", updatedCompany))
                 .willReturn(company);
         //when
-        Company actual =  companyRepository.update(company.getId(), updatedCompany);
+        Company actual =  companyService.update(company.getId(), updatedCompany);
         //then
         assertEquals(company,actual);
     }
@@ -116,7 +123,7 @@ public class CompanyServiceTest {
         given(companyRepository.findById("1"))
                 .willReturn(company);
         //when
-        companyRepository.delete(company);
+        companyService.delete(company);
         //then
         verify(companyRepository).delete(company);
     }
