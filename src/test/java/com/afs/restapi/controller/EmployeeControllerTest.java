@@ -102,8 +102,8 @@ public class EmployeeControllerTest {
         //given
         Employee employee = new Employee("1", "Brian", 18, "male", 9999,"1");
         Employee employee2 = new Employee("1", "Mary", 18, "female", 9999,"1");
-        employeeRepository.create(employee);
-        employeeRepository.create(employee2);
+        employeeRepositoryNew.insert(employee);
+        employeeRepositoryNew.insert(employee2);
 
 
         //When
