@@ -98,12 +98,12 @@ public class CompanyControllerTest {
     void should_return_employees_when_perform_get_given_companies_and_page_and_page_size() throws Exception {
         //given
         Company company = new Company("2","Koby Company");
-        companyRepository.create(company);
-        companyRepository.create(new Company("1", "dump"));
+        companyRepositoryNew.insert(company);
+        companyRepositoryNew.insert(new Company("1", "dump"));
 
         //When
         //then
-        mockMvc.perform(get("/companies").param("page", "1").param("pageSize", "3"))
+        mockMvc.perform(get("/companies").param("page", "0").param("pageSize", "3"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$[0].id").isString())
