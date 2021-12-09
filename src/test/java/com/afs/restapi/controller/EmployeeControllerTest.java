@@ -3,6 +3,7 @@ package com.afs.restapi.controller;
 import com.afs.restapi.entity.Employee;
 import com.afs.restapi.repository.EmployeeRepository;
 import com.afs.restapi.repository.EmployeeRepositoryNew;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,11 @@ public class EmployeeControllerTest {
     @Autowired
     MockMvc mockMvc;
     @BeforeEach
+    void clearRepositoryBefore(){
+        employeeRepository.clearAll();
+        employeeRepositoryNew.deleteAll();
+    }
+    @AfterEach
     void clearRepository(){
         employeeRepository.clearAll();
         employeeRepositoryNew.deleteAll();
@@ -38,8 +44,7 @@ public class EmployeeControllerTest {
     void should_return_employees_when_perform_get_given_employees() throws Exception {
         //given
         Employee employee = new Employee("1", "Brian", 18, "male", 9999,"1");
-        employeeRepository.create(employee);
-
+        employeeRepositoryNew.insert(employee);
 
         //When
         //then
