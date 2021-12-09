@@ -35,23 +35,27 @@ public class EmployeeController {
     }
 
     @GetMapping(params = {"gender"})
-    public List<Employee> getEmployeeByGender(@RequestParam String gender) {
-        return employeeService.findByGender(gender);
+    public List<EmployeeResponse> getEmployeeByGender(@RequestParam String gender) {
+        return employeeService.findByGender(gender).stream()
+                .map(employee -> employeeMapper.toResponse(employee))
+                .collect(Collectors.toList());
     }
     @GetMapping(params = {"page", "pageSize"})
-    public List<Employee> getEmployeesByPage(@RequestParam Integer page, Integer pageSize) {
-        return employeeService.findByPage(page, pageSize);
+    public List<EmployeeResponse> getEmployeesByPage(@RequestParam Integer page, Integer pageSize) {
+        return employeeService.findByPage(page, pageSize).stream()
+                .map(employee -> employeeMapper.toResponse(employee))
+                .collect(Collectors.toList());
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Employee createEmployee(@RequestBody EmployeeRequest employeeRequest){
-        return employeeService.create(employeeMapper.toEntity(employeeRequest));
+    public EmployeeResponse createEmployee(@RequestBody EmployeeRequest employeeRequest){
+        return employeeMapper.toResponse(employeeService.create(employeeMapper.toEntity(employeeRequest)));
     }
 
     @PutMapping("/{id}")
-    public  Employee editEmployee(@PathVariable String id, @RequestBody EmployeeRequest employeeRequest){
-        return employeeService.edit(id,employeeMapper.toEntity(employeeRequest));
+    public  EmployeeResponse editEmployee(@PathVariable String id, @RequestBody EmployeeRequest employeeRequest){
+        return employeeMapper.toResponse(employeeService.edit(id,employeeMapper.toEntity(employeeRequest)));
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
