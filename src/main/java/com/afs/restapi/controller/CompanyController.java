@@ -2,6 +2,7 @@ package com.afs.restapi.controller;
 
 import com.afs.restapi.dto.CompanyRequest;
 import com.afs.restapi.dto.CompanyResponse;
+import com.afs.restapi.dto.EmployeeResponse;
 import com.afs.restapi.entity.Company;
 import com.afs.restapi.entity.Employee;
 import com.afs.restapi.mapper.CompanyMapper;
@@ -19,10 +20,12 @@ import java.util.stream.Stream;
 public class CompanyController {
     private CompanyService companyService;
     private CompanyMapper companyMapper;
+    private EmployeeMapper employeeMapper;
 
-    public CompanyController(CompanyService companyService, CompanyMapper companyMapper){
+    public CompanyController(CompanyService companyService, CompanyMapper companyMapper, EmployeeMapper employeeMapper){
         this.companyService = companyService;
         this.companyMapper = companyMapper;
+        this.employeeMapper = employeeMapper;
     }
 
     @GetMapping
@@ -36,8 +39,11 @@ public class CompanyController {
     }
 
     @GetMapping("/{id}/employees")
-    public List<Employee> getEmployeesByCompanyId(@PathVariable String id) {
-        return companyService.findEmployeesByCompanyId(id);
+    public List<EmployeeResponse> getEmployeesByCompanyId(@PathVariable String id) {
+        //return companyService.findEmployeesByCompanyId(id);
+        return companyService.findEmployeesByCompanyId(id).stream()
+                .map(employee -> employeeMapper.toResponse(employee))
+                .collect(Collectors.toList());
     }
 
     @GetMapping(params = {"page", "pageSize"})

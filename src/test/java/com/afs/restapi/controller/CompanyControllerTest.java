@@ -38,6 +38,7 @@ public class CompanyControllerTest {
     void clearRepository(){
         companyRepository.clearAll();
         companyRepositoryNew.deleteAll();
+        employeeRepositoryNew.deleteAll();
     }
 
 
@@ -74,8 +75,13 @@ public class CompanyControllerTest {
     @Test
     void should_return_employees_when_perform_get_given_companies_and_id() throws Exception {
         //given
-        Company company = new Company("2","Koby Company");
-        companyRepository.create(company);
+        Company company = new Company("1","Koby Company");
+        companyRepositoryNew.insert(company);
+
+        Employee employee = new Employee("1", "Brian", 18, "Male", 100, "1");
+        Employee employee2 = new Employee("2", "Cindy", 22, "Female", 100, "2");
+        employeeRepositoryNew.insert(employee);
+        employeeRepositoryNew.insert(employee2);
 
         //When
         //then
