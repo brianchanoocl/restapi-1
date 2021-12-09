@@ -29,8 +29,6 @@ import static org.mockito.Mockito.verify;
 
 @ExtendWith(SpringExtension.class)
 public class EmployeeServiceTest {
-    @Mock
-    EmployeeRepository employeeRepository;
 
     @Mock
     EmployeeRepositoryNew employeeRepositoryNew;

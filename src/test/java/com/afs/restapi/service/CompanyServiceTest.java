@@ -27,8 +27,6 @@ import static org.mockito.Mockito.verify;
 @ExtendWith(SpringExtension.class)
 public class CompanyServiceTest {
     @Mock
-    CompanyRepository companyRepository;
-    @Mock
     CompanyRepositoryNew companyRepositoryNew;
     @Mock
     EmployeeRepositoryNew employeeRepositoryNew;
@@ -134,7 +132,7 @@ public class CompanyServiceTest {
         String id = "1";
         Company company = new Company("1","company");
         //when
-        given(companyRepository.findById("1"))
+        given(companyRepositoryNew.findById("1"))
                 .willThrow(NoCompanyFoundException.class);
 
         //then
