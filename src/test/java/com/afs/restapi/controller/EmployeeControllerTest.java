@@ -148,14 +148,14 @@ public class EmployeeControllerTest {
     void should_remove_employee_when_perform_delete_given_employees_and_id() throws Exception {
         //given
         Employee employee = new Employee("1", "Brian", 18, "male", 9999,"1");
-        employeeRepository.create(employee);
+        employeeRepositoryNew.insert(employee);
 
         //When
         //then
         mockMvc.perform(MockMvcRequestBuilders.delete("/employees/"+employee.getId()))
                 .andExpect(status().isNoContent());
 
-        assertEquals(0,employeeRepository.findAll().size());
+        assertEquals(0,employeeRepositoryNew.findAll().size());
     }
 
     @Test
