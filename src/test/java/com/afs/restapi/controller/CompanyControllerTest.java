@@ -48,7 +48,7 @@ public class CompanyControllerTest {
         mockMvc.perform(get("/companies"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$",hasSize(1)))
-                .andExpect(jsonPath("$[0].id").isNumber())
+                .andExpect(jsonPath("$[0].id").isString())
                 .andExpect(jsonPath("$[0].companyName").value("Koby Company"))
                 .andExpect(jsonPath("$[0].employees" ,hasSize(1)))
                 .andExpect(jsonPath("$[0].employees[0].name").value("Brian"))
@@ -68,7 +68,7 @@ public class CompanyControllerTest {
         //then
         mockMvc.perform(get("/companies/{id}", company.getId()))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").isNumber())
+                .andExpect(jsonPath("$.id").isString())
                 .andExpect(jsonPath("$.companyName").value("Koby Company"))
                 .andExpect(jsonPath("$.employees", hasSize(1)))
                 .andExpect(jsonPath("$.employees[0].name").value("Brian"))
@@ -106,7 +106,7 @@ public class CompanyControllerTest {
         mockMvc.perform(get("/companies").param("page", "1").param("pageSize", "3"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].id").isNumber())
+                .andExpect(jsonPath("$[0].id").isString())
                 .andExpect(jsonPath("$[0].companyName").value("Koby Company"))
                 .andExpect(jsonPath("$[0].employees", hasSize(1)))
                 .andExpect(jsonPath("$[0].employees[0].name").value("Brian"))
@@ -129,7 +129,7 @@ public class CompanyControllerTest {
         mockMvc.perform(post("/companies")
                 .contentType(MediaType.APPLICATION_JSON).content(company))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id").isNumber())
+                .andExpect(jsonPath("$.id").isString())
                 .andExpect(jsonPath("$.companyName").value("new"));
     }
 
@@ -150,7 +150,7 @@ public class CompanyControllerTest {
         mockMvc.perform(put("/companies/{id}", company.getId())
                 .contentType(MediaType.APPLICATION_JSON).content(updatedCompany))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").isNumber())
+                .andExpect(jsonPath("$.id").isString())
                 .andExpect(jsonPath("$.companyName").value("new"));
     }
 

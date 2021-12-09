@@ -59,7 +59,6 @@ public class CompanyRepository {
         companies.add(company);
         return company;
     }
-
     public Company update(String id, Company updatedCompany) {
         Company company = findById(id);
         company.setEmployees(findEmployeesByCompanyId(company.getId()));
