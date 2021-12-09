@@ -162,7 +162,7 @@ public class EmployeeControllerTest {
     void should_return_employee_when_perform_put_given_employee_and_id() throws Exception {
         //given
         Employee employee = new Employee("1", "Brian", 18, "male", 9999,"1");
-        employeeRepository.create(employee);
+        employeeRepositoryNew.insert(employee);
         String updatedEmployee = "{\n" +
                 "    \"name\":\"NotKoby\",\n" +
                 "    \"age\":0,\n" +
