@@ -17,9 +17,7 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(SpringExtension.class)
@@ -32,7 +30,7 @@ public class CompanyServiceTest {
     @Test
     void should_return_all_companies_when_find_all_given_companies() {
         //given
-        List<Company> companies = Stream.of(new Company("1","company",null))
+        List<Company> companies = Stream.of(new Company("1","company"))
                 .collect(Collectors.toList());
         given(companyRepository.findAll())
                 .willReturn(companies);
@@ -45,7 +43,7 @@ public class CompanyServiceTest {
     @Test
     void should_return_company_when_find_company_by_id_given_companies_and_id() {
         //given
-        Company company = new Company("1","company",null);
+        Company company = new Company("1","company");
         given(companyRepository.findById("1"))
                 .willReturn(company);
         //when
@@ -59,7 +57,7 @@ public class CompanyServiceTest {
         //given
         List<Employee> employees = Stream.of(new Employee("1","Koby",3,"male",2,"1"))
                 .collect(Collectors.toList());
-        Company company = new Company("1","company",employees);
+        Company company = new Company("1","company");
         given(companyRepository.findEmployeesByCompanyId("1"))
                 .willReturn(employees);
         //when
@@ -72,9 +70,9 @@ public class CompanyServiceTest {
     void should_return_companies_when_find_company_by_page_given_companies_and_page_and_pageSize() {
         //given
         List<Company> companies = new ArrayList<>();
-        companies.add(new Company("1","company",null));
-        companies.add(new Company("2","company",null));
-        companies.add(new Company("1","company",null));
+        companies.add(new Company("1","company"));
+        companies.add(new Company("2","company"));
+        companies.add(new Company("1","company"));
         given(companyRepository.findByPage(1, 3))
                 .willReturn(companies);
         //when
@@ -86,7 +84,7 @@ public class CompanyServiceTest {
     @Test
     void should_return_company_when_create_company_given_comapny() {
         //given
-        Company company = new Company("1","company",null);
+        Company company = new Company("1","company");
         given(companyRepository.create(company))
                 .willReturn(company);
         //when
@@ -98,8 +96,8 @@ public class CompanyServiceTest {
     @Test
     void should_return_company_when_update_company_given_updated_comapny() {
         //given
-        Company company = new Company("1","company",null);
-        Company updatedCompany = new Company("1","new",null);
+        Company company = new Company("1","company");
+        Company updatedCompany = new Company("1","new");
         given(companyRepository.findById(company.getId()))
                 .willReturn(company);
         company.setCompanyName(updatedCompany.getCompanyName());
@@ -114,7 +112,7 @@ public class CompanyServiceTest {
     @Test
     void should_remove_company_when_delete_given_updated_company() {
         //given
-        Company company = new Company("1","company",null);
+        Company company = new Company("1","company");
         given(companyRepository.findById("1"))
                 .willReturn(company);
         //when
@@ -127,7 +125,7 @@ public class CompanyServiceTest {
     void should_throw_exception_when_getCompanyByID_given_companies_and_invalid_id() {
         //given
         String id = "1";
-        Company company = new Company("1","company",null);
+        Company company = new Company("1","company");
         //when
         given(companyRepository.findById("1"))
                 .willThrow(NoCompanyFoundException.class);

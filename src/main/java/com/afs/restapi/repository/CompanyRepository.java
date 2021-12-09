@@ -26,14 +26,13 @@ public class CompanyRepository {
         employees2.add(new Employee("1","Mary1",100 ,"male", 1000,"2"));
         employees2.add(new Employee("2","Mary2",200 ,"female", 2000,"2"));
         employees2.add(new Employee("3","Mary3", 18,"male", 9999999,"2"));
-        Company abcCompany = new Company( "1","ABC Company",employees);
-        Company defCompany = new Company( "2","DEF Company",employees2);
+        Company abcCompany = new Company( "1","ABC Company");
+        Company defCompany = new Company( "2","DEF Company");
         companies.add(abcCompany);
         companies.add(defCompany);
     }
 
     public List<Company> findAll() {
-        companies.forEach(company -> company.setEmployees(findEmployeesByCompanyId(company.getId())));
         return companies;
     }
 
@@ -42,7 +41,6 @@ public class CompanyRepository {
                 .filter(company -> company.getId().equals(id))
                 .findFirst()
                 .orElseThrow(NoCompanyFoundException::new);
-        requestedCompany.setEmployees(findEmployeesByCompanyId(id));
         return requestedCompany;
     }
 
@@ -55,13 +53,11 @@ public class CompanyRepository {
 
     public Company create(Company company) {
         company.setId(String.valueOf(companies.stream().mapToInt(company1 -> Integer.parseInt(company1.getId())).max().orElse(0) + 1));
-        company.setEmployees(findEmployeesByCompanyId(company.getId()));
         companies.add(company);
         return company;
     }
     public Company update(String id, Company updatedCompany) {
         Company company = findById(id);
-        company.setEmployees(findEmployeesByCompanyId(company.getId()));
         companies.remove(company);
         companies.add(updatedCompany);
         return updatedCompany;

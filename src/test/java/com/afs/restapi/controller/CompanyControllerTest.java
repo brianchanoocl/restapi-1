@@ -41,7 +41,7 @@ public class CompanyControllerTest {
     void should_return_companies_when_perform_get_given_companies() throws Exception {
         //given
         Employee employee = new Employee("1", "Brian", 18, "male", 9999,"1");
-        Company company = new Company("1","Koby Company", Stream.of(employee).collect(Collectors.toList()));
+        Company company = new Company("1","Koby Company");
         companyRepository.create(company);
         //When
         //then
@@ -49,19 +49,14 @@ public class CompanyControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$",hasSize(1)))
                 .andExpect(jsonPath("$[0].id").isString())
-                .andExpect(jsonPath("$[0].companyName").value("Koby Company"))
-                .andExpect(jsonPath("$[0].employees" ,hasSize(1)))
-                .andExpect(jsonPath("$[0].employees[0].name").value("Brian"))
-                .andExpect(jsonPath("$[0].employees[0].age").value(18))
-                .andExpect(jsonPath("$[0].employees[0].gender").value("male"))
-                .andExpect(jsonPath("$[0].employees[0].salary").value(9999));
+                .andExpect(jsonPath("$[0].companyName").value("Koby Company"));
     }
 
     @Test
     void should_return_company_when_perform_get_given_companies_and_id() throws Exception {
         //given
         Employee employee = new Employee("1", "Brian", 18, "male", 9999,"1");
-        Company company = new Company("1","Koby Company", Stream.of(employee).collect(Collectors.toList()));
+        Company company = new Company("1","Koby Company");
         companyRepository.create(company);
 
         //When
@@ -69,18 +64,13 @@ public class CompanyControllerTest {
         mockMvc.perform(get("/companies/{id}", company.getId()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").isString())
-                .andExpect(jsonPath("$.companyName").value("Koby Company"))
-                .andExpect(jsonPath("$.employees", hasSize(1)))
-                .andExpect(jsonPath("$.employees[0].name").value("Brian"))
-                .andExpect(jsonPath("$.employees[0].age").value(18))
-                .andExpect(jsonPath("$.employees[0].gender").value("male"))
-                .andExpect(jsonPath("$.employees[0].salary").value(9999));
+                .andExpect(jsonPath("$.companyName").value("Koby Company"));
     }
 
     @Test
     void should_return_employees_when_perform_get_given_companies_and_id() throws Exception {
         //given
-        Company company = new Company("2","Koby Company", null);
+        Company company = new Company("2","Koby Company");
         companyRepository.create(company);
 
         //When
@@ -97,9 +87,9 @@ public class CompanyControllerTest {
     @Test
     void should_return_employees_when_perform_get_given_companies_and_page_and_page_size() throws Exception {
         //given
-        Company company = new Company("2","Koby Company", null);
+        Company company = new Company("2","Koby Company");
         companyRepository.create(company);
-        companyRepository.create(new Company("1", "dump", null));
+        companyRepository.create(new Company("1", "dump"));
 
         //When
         //then
@@ -107,12 +97,7 @@ public class CompanyControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$[0].id").isString())
-                .andExpect(jsonPath("$[0].companyName").value("Koby Company"))
-                .andExpect(jsonPath("$[0].employees", hasSize(1)))
-                .andExpect(jsonPath("$[0].employees[0].name").value("Brian"))
-                .andExpect(jsonPath("$[0].employees[0].age").value(18))
-                .andExpect(jsonPath("$[0].employees[0].gender").value("male"))
-                .andExpect(jsonPath("$[0].employees[0].salary").value(9999));
+                .andExpect(jsonPath("$[0].companyName").value("Koby Company"));
     }
 
     @Test
@@ -120,8 +105,7 @@ public class CompanyControllerTest {
         //given
         String company = "{\n" +
                 "        \"id\": \"1\",\n" +
-                "        \"companyName\": \"new\",\n" +
-                "        \"employees\": []\n" +
+                "        \"companyName\": \"new\"\n" +
                 "    }";
 
         //When
@@ -136,13 +120,11 @@ public class CompanyControllerTest {
     @Test
     void should_return_company_when_perform_put_given_company_and_id() throws Exception {
         //given
-        Company company = new Company("2","Koby Company", null);
+        Company company = new Company("2","Koby Company");
         companyRepository.create(company);
 
         String updatedCompany = "{\n" +
-                "        \"id\": \"1\",\n" +
-                "        \"companyName\": \"new\",\n" +
-                "        \"employees\": []\n" +
+                "        \"companyName\": \"new\"\n" +
                 "    }";
 
         //When
@@ -157,7 +139,7 @@ public class CompanyControllerTest {
     @Test
     void should_return_status_204_when_perform_delete_given_id() throws Exception {
         //given
-        Company company = new Company("2","Koby Company", null);
+        Company company = new Company("2","Koby Company");
         companyRepository.create(company);
 
         //When

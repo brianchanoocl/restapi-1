@@ -1,20 +1,28 @@
 package com.afs.restapi.controller;
 
+import com.afs.restapi.dto.CompanyRequest;
+import com.afs.restapi.dto.CompanyResponse;
 import com.afs.restapi.entity.Company;
 import com.afs.restapi.entity.Employee;
+import com.afs.restapi.mapper.CompanyMapper;
+import com.afs.restapi.mapper.EmployeeMapper;
 import com.afs.restapi.service.CompanyService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("companies")
 public class CompanyController {
     private CompanyService companyService;
+    private CompanyMapper companyMapper;
 
-    public CompanyController(CompanyService companyService){
+    public CompanyController(CompanyService companyService, CompanyMapper companyMapper){
         this.companyService = companyService;
+        this.companyMapper = companyMapper;
     }
 
     @GetMapping
@@ -23,8 +31,8 @@ public class CompanyController {
     }
 
     @GetMapping("/{id}")
-    public Company getCompanyById(@PathVariable String id) {
-        return companyService.findById(id);
+    public CompanyResponse getCompanyById(@PathVariable String id) {
+        return companyMapper.toResponse(companyService.findById(id), companyService.findEmployeesByCompanyId(id));
     }
 
     @GetMapping("/{id}/employees")
@@ -39,8 +47,8 @@ public class CompanyController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Company createCompany(@RequestBody Company company){
-        return companyService.create(company);
+    public Company createCompany(@RequestBody CompanyRequest companyRequest){
+        return companyService.create(companyMapper.toEntity(companyRequest));
     }
 
     @PutMapping("/{id}")
