@@ -40,7 +40,6 @@ public class CompanyController {
 
     @GetMapping("/{id}/employees")
     public List<EmployeeResponse> getEmployeesByCompanyId(@PathVariable String id) {
-        //return companyService.findEmployeesByCompanyId(id);
         return companyService.findEmployeesByCompanyId(id).stream()
                 .map(employee -> employeeMapper.toResponse(employee))
                 .collect(Collectors.toList());

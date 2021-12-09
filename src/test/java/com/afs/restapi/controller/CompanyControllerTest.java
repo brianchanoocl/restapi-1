@@ -75,11 +75,11 @@ public class CompanyControllerTest {
     @Test
     void should_return_employees_when_perform_get_given_companies_and_id() throws Exception {
         //given
-        Company company = new Company("1","Koby Company");
+        Company company = new Company(null, "Koby Company");
         companyRepositoryNew.insert(company);
 
-        Employee employee = new Employee("1", "Brian", 18, "Male", 100, "1");
-        Employee employee2 = new Employee("2", "Cindy", 22, "Female", 100, "2");
+        Employee employee = new Employee("Brian", 18, "male", 100, company.getId());
+        Employee employee2 = new Employee("Cindy", 22, "female", 100, company.getId());
         employeeRepositoryNew.insert(employee);
         employeeRepositoryNew.insert(employee2);
 
@@ -87,11 +87,10 @@ public class CompanyControllerTest {
         //then
         mockMvc.perform(get("/companies/{id}/employees", company.getId()))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$",hasSize(1)))
+                .andExpect(jsonPath("$",hasSize(2)))
                 .andExpect(jsonPath("$[0].name").value("Brian"))
                 .andExpect(jsonPath("$[0].age").value(18))
-                .andExpect(jsonPath("$[0].gender").value("male"))
-                .andExpect(jsonPath("$[0].salary").value(9999));
+                .andExpect(jsonPath("$[0].gender").value("male"));
     }
 
     @Test
@@ -131,7 +130,7 @@ public class CompanyControllerTest {
     void should_return_company_when_perform_put_given_company_and_id() throws Exception {
         //given
         Company company = new Company("2","Koby Company");
-        companyRepository.create(company);
+        companyRepositoryNew.insert(company);
 
         String updatedCompany = "{\n" +
                 "        \"companyName\": \"new\"\n" +
