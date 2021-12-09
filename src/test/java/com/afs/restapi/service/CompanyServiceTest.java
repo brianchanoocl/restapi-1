@@ -120,12 +120,12 @@ public class CompanyServiceTest {
     void should_remove_company_when_delete_given_updated_company() {
         //given
         Company company = new Company("1","company");
-        given(companyRepository.findById("1"))
-                .willReturn(company);
+        given(companyRepositoryNew.findById("1"))
+                .willReturn(java.util.Optional.of(company));
         //when
         companyService.delete(company);
         //then
-        verify(companyRepository).delete(company);
+        verify(companyRepositoryNew).delete(company);
     }
 
     @Test
