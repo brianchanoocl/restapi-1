@@ -89,11 +89,11 @@ public class CompanyServiceTest {
     }
 
     @Test
-    void should_return_company_when_create_company_given_comapny() {
+    void should_return_company_when_create_company_given_company() {
         //given
         Company company = new Company("1","company");
-        //given(employeeRepository.insert(company))
-        //        .willReturn(company);
+        given(companyRepositoryNew.insert(company))
+                .willReturn(company);
         //when
         Company actual =  companyService.create(company);
         //then
