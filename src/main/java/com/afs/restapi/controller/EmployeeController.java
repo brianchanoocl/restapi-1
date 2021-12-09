@@ -1,7 +1,6 @@
 package com.afs.restapi.controller;
 
 import com.afs.restapi.entity.Employee;
-import com.afs.restapi.repository.EmployeeRepository;
 import com.afs.restapi.service.EmployeeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +22,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/{id}")
-    public Employee getEmployeeById(@PathVariable Integer id) {
+    public Employee getEmployeeById(@PathVariable String id) {
         return employeeService.findById(id);
     }
     @GetMapping(params = {"gender"})
@@ -42,13 +41,13 @@ public class EmployeeController {
     }
 
     @PutMapping("/{id}")
-    public  Employee editEmployee(@PathVariable Integer id,@RequestBody Employee updatedEmployee){
+    public  Employee editEmployee(@PathVariable String id, @RequestBody Employee updatedEmployee){
         return employeeService.edit(id,updatedEmployee);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
-    public void deleteEmployee(@PathVariable Integer id){
+    public void deleteEmployee(@PathVariable String id){
         employeeService.delete(id);
     }
 

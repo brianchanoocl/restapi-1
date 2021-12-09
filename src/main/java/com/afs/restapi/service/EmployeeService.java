@@ -17,7 +17,7 @@ public class EmployeeService {
         return  employeeRepository.findAll();
     }
 
-    public Employee edit(Integer id, Employee updatedEmployee) {
+    public Employee edit(String id, Employee updatedEmployee) {
         Employee employee = employeeRepository.findById(id);
         if(updatedEmployee.getAge() != null){
             employee.setAge(updatedEmployee.getAge());
@@ -32,7 +32,7 @@ public class EmployeeService {
         return employeeRepository.create(employee);
     }
 
-    public Employee findById(Integer id) {
+    public Employee findById(String id) {
         return employeeRepository.findById(id);
     }
 
@@ -44,7 +44,7 @@ public class EmployeeService {
         return employeeRepository.findByPage(page,pageSize);
     }
 
-    public void delete(Integer id) {
+    public void delete(String id) {
         Employee employee = employeeRepository.findById(id);
         employeeRepository.delete(employee);
     }

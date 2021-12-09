@@ -10,6 +10,7 @@ import java.util.List;
 @Service
 public class CompanyService {
     private CompanyRepository companyRepository;
+    //TODO private EmployeeRepository employeeRepository;
 
     public CompanyService(CompanyRepository companyRepository) {
         this.companyRepository = companyRepository;
@@ -19,7 +20,7 @@ public class CompanyService {
         return companyRepository.findAll();
     }
 
-    public Company findById(Integer id) {
+    public Company findById(String id) {
         return companyRepository.findById(id);
     }
 
@@ -31,7 +32,7 @@ public class CompanyService {
         return companyRepository.create(company);
     }
 
-    public Company update(Integer id, Company company) {
+    public Company update(String id, Company company) {
         return companyRepository.update(id, company);
     }
 
@@ -39,7 +40,7 @@ public class CompanyService {
         companyRepository.delete(company);
     }
 
-    public List<Employee> findEmployeesByCompanyId(Integer id) {
+    public List<Employee> findEmployeesByCompanyId(String id) {
         return companyRepository.findEmployeesByCompanyId(id);
     }
 }

@@ -2,7 +2,6 @@ package com.afs.restapi.controller;
 
 import com.afs.restapi.entity.Company;
 import com.afs.restapi.entity.Employee;
-import com.afs.restapi.repository.CompanyRepository;
 import com.afs.restapi.service.CompanyService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -24,12 +23,12 @@ public class CompanyController {
     }
 
     @GetMapping("/{id}")
-    public Company getCompanyById(@PathVariable Integer id) {
+    public Company getCompanyById(@PathVariable String id) {
         return companyService.findById(id);
     }
 
     @GetMapping("/{id}/employees")
-    public List<Employee> getCompanyEmployeeById(@PathVariable Integer id) {
+    public List<Employee> getEmployeesByCompanyId(@PathVariable String id) {
         return companyService.findEmployeesByCompanyId(id);
     }
 
@@ -45,7 +44,7 @@ public class CompanyController {
     }
 
     @PutMapping("/{id}")
-    public  Company editCompany(@PathVariable Integer id,@RequestBody Company updatedCompany){
+    public  Company editCompany(@PathVariable String id, @RequestBody Company updatedCompany){
         Company company = companyService.findById(id);
         if(updatedCompany.getCompanyName() != null){
             company.setCompanyName(updatedCompany.getCompanyName());
@@ -55,7 +54,7 @@ public class CompanyController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
-    public void deleteCompany(@PathVariable Integer id){
+    public void deleteCompany(@PathVariable String id){
         Company company = companyService.findById(id);
         companyService.delete(company);
     }
