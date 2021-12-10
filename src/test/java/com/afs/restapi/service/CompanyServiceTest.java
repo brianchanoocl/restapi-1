@@ -78,10 +78,11 @@ public class CompanyServiceTest {
         List<Company> companies = new ArrayList<>();
         companies.add(new Company("1","company"));
         companies.add(new Company("2","company"));
-        given(companyRepositoryNew.findAll(PageRequest.of(1, 2)))
-                .willReturn(new PageImpl<>(companies, PageRequest.of(1, 2), 2));
+        given(companyRepositoryNew.findAll(PageRequest.of(0, 2)))
+                .willReturn(new PageImpl<>(companies, PageRequest.of(0, 2), 2));
         //when
-        List<Company> actual =  companyService.findByPage(1, 2);
+        List<Company> actual =  companyService.findByPage(0, 2);
+        System.out.println(actual.size());
         //then
         assertEquals(companies, actual);
     }
@@ -132,7 +133,7 @@ public class CompanyServiceTest {
         String id = "1";
         Company company = new Company("1","company");
         //when
-        given(companyRepositoryNew.findById("1"))
+        given(companyRepositoryNew.findById("2"))
                 .willThrow(NoCompanyFoundException.class);
 
         //then
